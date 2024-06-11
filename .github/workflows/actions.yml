@@ -1,9 +1,24 @@
+name: 打包Nextjs项目
 on: push
+
+permissions:
+  contents: write
 
 jobs:
   npm-build:
+    name: npm-build工作
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
-    - run: npm install
-    - run: npm run build
+    - name: 读取仓库内容
+      uses: actions/checkout@v4
+    - name: 安装依赖并打包项目
+      run: |
+        npm install
+        npm run build
+
+    - name: 部署项目
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: product-pages
+        folder: .next
