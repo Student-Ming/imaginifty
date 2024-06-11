@@ -1,7 +1,7 @@
 import '@/styles/globals.css'
 import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import type { AppProps } from 'next/app'
-import { Providers } from "./providers";
+import Providers from "./providers";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
