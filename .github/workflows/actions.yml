@@ -12,13 +12,15 @@ jobs:
     steps:
     - name: 读取仓库内容
       uses: actions/checkout@v4
-    - name: 安装依赖并打包项目
-      run: |
-        npm install
-        npm run build
 
-    - name: 部署项目
-      uses: JamesIves/github-pages-deploy-action@v4
+    - name: 登陆DockerHub
+      uses: docker/login-action@v3
       with:
-        branch: product-pages
-        folder: .next
+        username: ${{ secrets.DOCHER_HUB_USERNAME }}
+        password: ${{ secrets.DOCHER_HUB_TOKEN }}
+
+    - name: 构建并推送到Docker Hub
+      uses: docker/build-push-action@v5
+      with:
+        push: true
+        tags: studentming/imaginifty:latest
