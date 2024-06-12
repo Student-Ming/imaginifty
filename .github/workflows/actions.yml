@@ -1,24 +1,11 @@
-name: 打包Nextjs项目
-on: push
-
-permissions:
-  contents: write
-
-jobs:
-  npm-build:
-    name: npm-build工作
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: 读取仓库内容
-      uses: actions/checkout@v4
-    - name: 安装依赖并打包项目
-      run: |
-        npm install
-        npm run build
-
-    - name: 部署项目
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        branch: product-pages
-        folder: .next
+uses: actions/cache@v4
+with:
+  # See here for caching with `yarn` https://github.com/actions/cache/blob/main/examples.md#node---yarn or you can leverage caching with actions/setup-node https://github.com/actions/setup-node
+  path: |
+    ~/.npm
+    ${{ github.workspace }}/.next/cache
+  # Generate a new cache whenever packages or source files change.
+  key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/*.js', '**/*.jsx', '**/*.ts', '**/*.tsx') }}
+  # If source files changed but packages didn't, rebuild from a prior cache.
+  restore-keys: |
+    ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
