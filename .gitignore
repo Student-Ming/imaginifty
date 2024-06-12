@@ -1,1 +1,5 @@
-node_modules
+# node_modules文件太大不需要上传到github
+node_modules/
+
+# 生产文件也不需要上传
+.next/
