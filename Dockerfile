@@ -2,7 +2,7 @@
 FROM node:18-alpine
 
 # 镜像创建者信息
-MAINTAINER studentming
+LABEL MAINTAINER="studentming"
 
 # 复制文件到镜像，自动解压（文件类型为：tar.gz 或 tar.bz2）
 ADD . /app
