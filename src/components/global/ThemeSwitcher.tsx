@@ -11,7 +11,7 @@ export const ThemeSwitcher = () => {
             <div>
                 <Tooltip
                     content={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
-                    delay={150}
+                    delay={50}
                     closeDelay={200}
                     color={theme === 'light' ? 'default' : 'secondary'}
                     offset={-45}>

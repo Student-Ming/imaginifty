@@ -1,0 +1,18 @@
+/* 变量 */
+:root {
+    --scroll-behavior: smooth;
+}
+
+/* base作用：主要用于html标签的css属性 */
+@layer base {
+    body {
+        /* var作用：能引用当前文件中预设的变量 */
+        scroll-behavior: var(--scroll-behavior);
+
+        /* theme作用：能引用tailwind.config.ts中预设的变量 */
+        /* background-color: theme(colors.body); */
+
+        /* @apply作用：后面能使用tw中预设的样式，否则不能使用预设样式 */
+        /* @apply bg-white; */
+    }
+}
