@@ -3,3 +3,4 @@ node_modules/
 
 # 生产文件也不需要上传
 .next/
+out
