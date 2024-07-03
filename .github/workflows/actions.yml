@@ -11,7 +11,7 @@ jobs:
   npm-build:
     name: npm-build工作
     runs-on: ubuntu-latest
-    # if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
+    if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'master'
 
     steps:
     - name: 读取仓库内容
