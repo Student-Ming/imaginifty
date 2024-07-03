@@ -16,6 +16,23 @@ jobs:
     - name: 读取仓库内容
       uses: actions/checkout@v4
 
+    - name: 设置node指定版本
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.13.1
+
+    - name: 安装依赖
+      run: npm install
+
+    - name: 打包项目
+      run: npm run build
+
+    - name: 部署
+      uses: JamesIves/github-pages-deploy-action@4.1.5
+      with:
+        branch: gh-pages
+        folder: out
+
     - name: 登陆DockerHub
       uses: docker/login-action@v3
       with:
