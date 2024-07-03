@@ -16,6 +16,40 @@ jobs:
     - name: 读取仓库内容
       uses: actions/checkout@v4
 
+    - name: 设置node指定版本
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.13.1
+
+    - name: 设置pages
+      uses: actions/configure-pages@v3
+      with:
+        static_site_generator: next
+
+    - name: Restore cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          .next/cache
+        # Generate a new cache whenever packages or source files change. 当包或源文件发生更改时生成新的缓存。
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+        # If source files changed but packages didn't, rebuild from a prior cache. 如果源文件发生了变化但包没有变化，则从先前的缓存中重建。
+        restore-keys: |
+          ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+    - name: 安装依赖
+      run: npm install
+
+    - name: 打包项目
+      run: npm run build
+
+    # 上传工作 Build 完的静态文件会存放在 out 文件夹，在 next.config.js 中配置 output: 'export'
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v2
+      with:
+        path: ./out
+
+    # 推送到dockerhub
     - name: 登陆DockerHub
       uses: docker/login-action@v3
       with:
@@ -27,3 +61,14 @@ jobs:
       with:
         push: true
         tags: studentming/imaginifty:latest
+
+  # Deployment job 部署工作
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
