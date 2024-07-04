@@ -2,9 +2,11 @@ import Head from 'next/head'
 import { Button, Spacer } from '@nextui-org/react';
 import { ThemeSwitcher } from '@/src/components/global/ThemeSwitcher'
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import { useRouter } from 'next/router';
 
 
 export default function Home() {
+  const router = useRouter()
   return (
     <div>
       <Head><title>IMAGINIFTY:Beyond Your Imagination</title></Head>
@@ -27,6 +29,7 @@ export default function Home() {
           <p>之前就体验过 Visual Electric 这个 AI 工具，产品本身印象不深，但是对官网上那些动画和字体设计蛮感兴趣的，当时好像群里还一起研究过实现方式。今天看到 Brand New 的博文才知道这整组视觉设计来自 Manual 创意设</p>
           <p>之前就体验过 Visual Electric 这个 AI 工具，产品本身印象不深，但是对官网上那些动画和字体设计蛮感兴趣的，当时好像群里还一起研究过实现方式。今天看到 Brand New 的博文才知道这整组视觉设计来自 Manual 创意设</p>
         </main>
+        <button onClick={() => router.push('/about')}>click</button>
       </div>
     </div>
   );
