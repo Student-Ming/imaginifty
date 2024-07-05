@@ -32,6 +32,9 @@ jobs:
         branch: gh-pages
         folder: out
 
+    - name: 创建 .nojekyll 文件，避免 “_” 路径问题
+      run: touch out/.nojekyll
+
     - name: 登陆DockerHub
       uses: docker/login-action@v3
       with:
