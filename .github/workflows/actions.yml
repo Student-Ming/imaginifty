@@ -26,6 +26,11 @@ jobs:
         npm install
         npm run build
 
+    - name: 创建 .nojekyll 文件
+      run: |
+        cd out/
+        touch .nojekyll 
+
     - name: 部署
       uses: JamesIves/github-pages-deploy-action@4.1.5
       with:
