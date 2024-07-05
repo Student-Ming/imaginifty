@@ -31,6 +31,7 @@ export default function Home() {
         </main>
         <button onClick={() => router.push('/about')}>click</button>
       </div>
+      <button onClick={() => console.log('666')}>测试</button>
     </div>
   );
 }
