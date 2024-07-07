@@ -1,5 +1,5 @@
-import '@/styles/globals.css'
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
+import '@/src/styles/globals.css'
+import { ClerkProvider } from '@clerk/nextjs'
 import type { AppProps } from 'next/app'
 import Providers from "./providers";
 import { NextUIProvider } from "@nextui-org/react";
