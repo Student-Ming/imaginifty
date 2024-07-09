@@ -6,7 +6,7 @@ export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme()
 
   return (
-    <div>
+    <div className="mt-1">
       <Tooltip
         content={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
         delay={50}
