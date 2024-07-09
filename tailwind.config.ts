@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 const { nextui } = require("@nextui-org/react");
 
 const config: Config = {
+  important: true,
   darkMode: 'class', // 通过class控制主题
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,6 +11,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        Hack: ['Hack']
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -17,6 +21,9 @@ const config: Config = {
       },
       colors: {
         'body': 'blue'
+      },
+      scale: {
+        '120': '1.20'
       },
       screens: {
         // 统一并对齐媒体查询viewport-size

@@ -1,0 +1,5 @@
+@layer components {
+    .bg-header {
+        background-image: linear-gradient(90deg, #02469A 0%, #030B17 40.68%, #030B17 71.72%, #3B1855 100%) !important;
+    }
+}

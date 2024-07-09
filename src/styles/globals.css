@@ -5,3 +5,4 @@
 @import './utilities.css';
 
 @import 'tailwindcss/components';
+@import './components/navbar.css'
