@@ -8,7 +8,7 @@ import { clsxm } from '@/src/utils/clsxm';
 import { SlugName } from './slugName';
 
 const defaultAvaterConfig = {
-  imageSrc: '/images/logo.svg',
+  imageSrc: `${process.env.NODE_ENV === 'production' ? 'https://student-ming.github.io/imaginifty/public' : ''}/images/logo.svg`,
   className: 'bg-transparent cursor-pointer',
   linkPath: '/',
 };
