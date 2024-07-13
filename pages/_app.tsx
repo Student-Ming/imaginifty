@@ -5,6 +5,7 @@ import Providers from "./providers";
 import { NextUIProvider } from "@nextui-org/react";
 import { NavBar } from '@/src/components/global/navbar';
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import LoadingProgress from '@/src/components/global/progress';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +13,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Providers>
         <NextUIProvider>
           <NextThemesProvider attribute="class" defaultTheme="light">
+            <LoadingProgress />
             <NavBar></NavBar>
             <Component {...pageProps} />
           </NextThemesProvider>

@@ -29,7 +29,7 @@ export const NavBar = () => {
                 className,
               )}
               name='welcome to imaginifty!'
-              size={40}
+              size={34}
               shape='circle'
             />
           </Link>
