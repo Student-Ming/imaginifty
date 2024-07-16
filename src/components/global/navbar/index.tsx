@@ -8,13 +8,13 @@ import { clsxm } from '@/src/utils/clsxm';
 import { SlugName } from './slugName';
 
 const defaultAvaterConfig = {
-  imageSrc: `${process.env.NODE_ENV === 'production' ? 'https://student-ming.github.io/imaginifty' : ''}/images/logo.svg`,
+  imgSrc: `${process.env.NODE_ENV === 'production' ? 'https://student-ming.github.io/imaginifty' : ''}/images/logo.svg`,
   className: 'bg-transparent cursor-pointer',
   linkPath: '/',
 };
 
 export const NavBar = () => {
-  const { imageSrc, className, linkPath } = {
+  const { imgSrc, className, linkPath } = {
     ...defaultAvaterConfig
   };
 
@@ -23,12 +23,13 @@ export const NavBar = () => {
       <div className='flex justify-between xl:px-8 px-4 w-full h-8'>
         <div className='flex items-center mr-10 max-lg:mr-2'>
           <Link href={linkPath}>
-            <Avatar imageSrc={imageSrc}
+            <Avatar
               className={clsxm(
                 'mr-2 transition-all duration-500 ease-in-out transform hover:scale-120',
                 className,
               )}
-              name='welcome to imaginifty!'
+              imgSrc={imgSrc}
+              imgdesc='welcome to imaginifty!'
               size={34}
               shape='circle'
             />
