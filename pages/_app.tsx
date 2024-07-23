@@ -6,20 +6,27 @@ import { NextUIProvider } from "@nextui-org/react";
 import { NavBar } from '@/src/components/global/navbar';
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import LoadingProgress from '@/src/components/global/progress';
+import { store, persistor } from '@/src/redux';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ClerkProvider>
-      <Providers>
-        <NextUIProvider>
-          <NextThemesProvider attribute="class" defaultTheme="light">
-            <LoadingProgress />
-            <NavBar></NavBar>
-            <Component {...pageProps} />
-          </NextThemesProvider>
-        </NextUIProvider>
-      </Providers>
-    </ClerkProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ClerkProvider>
+          <Providers>
+            <NextUIProvider>
+              <NextThemesProvider attribute="class" defaultTheme="light">
+                <LoadingProgress />
+                <NavBar></NavBar>
+                <Component {...pageProps} />
+              </NextThemesProvider>
+            </NextUIProvider>
+          </Providers>
+        </ClerkProvider>
+      </PersistGate>
+    </Provider>
   )
 }
 

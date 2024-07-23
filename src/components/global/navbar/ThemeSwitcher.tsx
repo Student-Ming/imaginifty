@@ -1,31 +1,39 @@
 import { useTheme } from "next-themes";
 import { Sun, MoonStar } from "lucide-react";
 import { Switch, Tooltip } from "@nextui-org/react";
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { themeState } from "@/src/redux/features/theme";
+import { changeType } from "@/src/redux/features/theme";
+import { useEffect } from "react";
+
+interface params {
+  themeReducer: themeState
+}
 
 export const ThemeSwitcher = () => {
-  const { theme, setTheme } = useTheme()
-  const [isSelected, setSelected] = useState(false)
+  const { type, isSelected, tip, color } = useSelector((state: params) => state.themeReducer)
+  const { setTheme } = useTheme()
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    theme === 'dark' ? setSelected(true) : setSelected(false)
-  }, [theme])
+    setTheme(type)
+  }, [type])
 
   return (
     <div className="mt-1">
       <Tooltip
-        content={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+        content={tip}
         delay={50}
         closeDelay={200}
-        color={theme === 'light' ? 'default' : 'secondary'}
+        color={color}
         offset={-45}>
         <Switch
-          isSelected={isSelected}
+          defaultSelected={isSelected}
           size="md"
           color="secondary"
           startContent={<MoonStar />}
           endContent={<Sun />}
-          onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+          onChange={() => dispatch(changeType())}
         />
       </Tooltip>
     </div>
