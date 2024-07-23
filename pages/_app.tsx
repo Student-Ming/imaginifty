@@ -1,5 +1,4 @@
 import '@/src/styles/globals.css'
-import { ClerkProvider } from '@clerk/nextjs'
 import type { AppProps } from 'next/app'
 import Providers from "./providers";
 import { NextUIProvider } from "@nextui-org/react";
@@ -14,17 +13,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ClerkProvider>
-          <Providers>
-            <NextUIProvider>
-              <NextThemesProvider attribute="class" defaultTheme="light">
-                <LoadingProgress />
-                <NavBar></NavBar>
-                <Component {...pageProps} />
-              </NextThemesProvider>
-            </NextUIProvider>
-          </Providers>
-        </ClerkProvider>
+        <Providers>
+          <NextUIProvider>
+            <NextThemesProvider attribute="class" defaultTheme="light">
+              <LoadingProgress />
+              <NavBar></NavBar>
+              <Component {...pageProps} />
+            </NextThemesProvider>
+          </NextUIProvider>
+        </Providers>
       </PersistGate>
     </Provider>
   )
