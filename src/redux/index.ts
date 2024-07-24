@@ -1,17 +1,20 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import themeReducer from "./features/theme";
-import storage from "redux-persist/lib/storage";
-import autoMergeLevel1 from "redux-persist/lib/stateReconciler/autoMergeLevel1";
 import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
+import autoMergeLevel1 from "redux-persist/lib/stateReconciler/autoMergeLevel1";
+import storage from "redux-persist/lib/storage";
+import themeReducer from "./features/theme";
+import loginDialogReducer from "./features/loginDialog"
 
 const persistConfig = {
     key: 'imaginifty',
     storage: storage,
-    stateReconciler: autoMergeLevel1
+    stateReconciler: autoMergeLevel1,
+    blacklist: ['loginDialog']
 }
 
 const reducers = combineReducers({
-    themeReducer,
+    theme: themeReducer,
+    loginDialog: loginDialogReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducers as any)
