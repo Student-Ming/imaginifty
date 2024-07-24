@@ -7,11 +7,11 @@ import { changeType } from "@/src/redux/features/theme";
 import { useEffect } from "react";
 
 interface params {
-  themeReducer: themeState
+  theme: themeState
 }
 
 export const ThemeSwitcher = () => {
-  const { type, isSelected, tip, color } = useSelector((state: params) => state.themeReducer)
+  const { type, isSelected, tip, color } = useSelector((state: params) => state.theme)
   const { setTheme } = useTheme()
   const dispatch = useDispatch()
 

@@ -1,7 +1,5 @@
 import React from "react"
-import { Image } from "@nextui-org/react"
 import { clsxm } from "@/src/utils/clsxm"
-
 
 type AvatarShape = 'round' | 'circle'
 

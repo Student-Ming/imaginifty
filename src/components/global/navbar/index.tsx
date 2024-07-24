@@ -1,4 +1,3 @@
-import { Spacer } from '@nextui-org/react';
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { Login } from '../../login';
 import { GLOBAL_HEADER_HEIGHT } from '@/src/constants/layout';

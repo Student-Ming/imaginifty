@@ -8,6 +8,7 @@ import LoadingProgress from '@/src/components/global/progress';
 import { store, persistor } from '@/src/redux';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import LoginDialog from '@/src/components/login/loginDialog';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               <LoadingProgress />
               <NavBar></NavBar>
               <Component {...pageProps} />
+              <LoginDialog />
             </NextThemesProvider>
           </NextUIProvider>
         </Providers>
