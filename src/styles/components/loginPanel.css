@@ -1,0 +1,5 @@
+@layer components {
+    .clip-bottom-right {
+        clip-path: polygon(0 0, 100% 0, 100% 0%, 0% 100%, 0 100%);
+    }
+}

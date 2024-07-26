@@ -26,7 +26,8 @@ export const ThemeSwitcher = () => {
         delay={50}
         closeDelay={200}
         color={color}
-        offset={-45}>
+        placement="bottom"
+        showArrow>
         <Switch
           defaultSelected={isSelected}
           size="md"
