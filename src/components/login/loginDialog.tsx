@@ -31,7 +31,7 @@ export default function LoginDialog() {
                         scale: 1,
                         opacity: 1,
                         transition: {
-                            duration: 0.3,
+                            duration: 0.2,
                             ease: "easeOut",
                         },
                     },
