@@ -7,14 +7,15 @@ import { Tooltip } from "@nextui-org/react";
 import { CircleX, Eye, EyeOff } from "lucide-react";
 import React, { useState } from "react";
 import { formParams } from "@/src/type/loginForm";
-import { emailPattern, passwordPattern } from "@/src/utils/loginRegex";
+import { codePattern, emailPattern, passwordPattern } from "@/src/utils/loginRegex";
+import { useVerificationCode } from "@/src/hooks/use-verification-code";
 
 const loginImg = {
     QRimg: `${process.env.NODE_ENV === 'production' ? 'https://student-ming.github.io/imaginifty' : ''}/images/login/QR.svg`,
     PCimg: ''
 }
 
-type iconType = 'email' | 'password'
+type iconType = 'email' | 'password' | 'findPassword'
 type inputType = 'text' | 'password'
 type colorType = 'default' | 'danger' | 'success'
 
@@ -29,12 +30,15 @@ export const LoginPanel = () => {
 
     const [emailValue, setEmail] = React.useState<string>('')
     const [passwordValue, setpassword] = React.useState<string>('')
+    const [codeValue, setCodeValue] = React.useState<string>('')
+    const [isLoading, setIsLoading] = useState(false)
     const [formValue, setformValue] = React.useState<formParams>({
         email: emailValue,
         password: passwordValue
     });
 
     const [inputType, setInputType] = useState<inputType>('password')
+    const { countdown, isButtonDisabled, startCountdown, endCountdown } = useVerificationCode(60)
     const endContentIcon = (iconType: iconType) => {
         if (iconType === 'email') {
             if (emailValue) {
@@ -47,7 +51,7 @@ export const LoginPanel = () => {
             } else {
                 return <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
             }
-        } else {
+        } else if (iconType === 'password') {
             if (passwordValue) {
                 if (inputType === 'text') {
                     return (
@@ -77,6 +81,14 @@ export const LoginPanel = () => {
             } else {
                 return <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
             }
+        } else {
+            return (
+                <Button color="primary" variant="flat" className="top-0.5 bg-[#d4d4d8a2] text-[#2971e6e2]" onClick={() => {
+                    startCountdown()
+                }} disabled={isButtonDisabled}>
+                    {isButtonDisabled ? `重新获取(${countdown}s)` : '获取验证码'}
+                </Button>
+            )
         }
     }
 
@@ -120,7 +132,43 @@ export const LoginPanel = () => {
         }
     }
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [codeErrorMsg, setCodeErrorMsg] = useState('')
+    const [isCodeInvalid, setIsCodeInvalid] = useState(false)
+    const [CodeColor, setCodeColor] = useState<colorType>('default')
+    const handleInvalidCode = (e: any) => {
+        setCodeValue(e.target.value)
+        if (e.target.value === '') {
+            setCodeErrorMsg('验证码不能为空！')
+            setCodeColor('danger')
+            setIsCodeInvalid(true);
+        } else if (!codePattern(e.target.value)) {
+            setCodeErrorMsg('请输入正确的验证码！')
+            setCodeColor('danger')
+            setIsCodeInvalid(true);
+        } else {
+            setCodeErrorMsg('')
+            setCodeColor('success')
+            setIsCodeInvalid(false);
+        }
+    }
+
+    const [isLoginPanel, setIsLoginPanel] = useState(true)
+    const resetForm = () => {
+        setIsLoginPanel(!isLoginPanel)
+        setEmail('')
+        setpassword('')
+        setCodeValue('')
+        setEmailErrorMsg('')
+        setPwdErrorMsg('')
+        setCodeErrorMsg('')
+        setEmailColor('default')
+        setPwdColor('default')
+        setCodeColor('default')
+        setIsEmailInvalid(false);
+        setIsPwdInvalid(false);
+        setIsCodeInvalid(false);
+        endCountdown()
+    }
 
     return (
         <ModalContent>
@@ -149,7 +197,7 @@ export const LoginPanel = () => {
                                 <img width={50} height={50} src={QRimg} alt="扫码登录安全快捷" />
                             </div>
                         </Tooltip>
-                        <h1 className="dark:text-black flex justify-center">邮箱登录</h1>
+                        <h1 className="dark:text-black flex justify-center">{isLoginPanel ? '邮箱登录' : '找回密码'}</h1>
                     </ModalHeader>
                     <ModalBody className="gap-1">
                         <Input
@@ -167,6 +215,24 @@ export const LoginPanel = () => {
                             endContent={endContentIcon('email')}
                             className="regTip dark:text-black"
                         />
+                        {!isLoginPanel &&
+                            <Input
+                                value={codeValue}
+                                isInvalid={isCodeInvalid}
+                                onChange={handleInvalidCode}
+                                errorMessage={
+                                    <div className="slide-down-animation">{codeErrorMsg}</div>
+                                }
+                                color={CodeColor}
+                                isRequired
+                                minLength={6}
+                                maxLength={6}
+                                label="验证码"
+                                type="text"
+                                variant="bordered"
+                                endContent={endContentIcon('findPassword')}
+                                className="regTip dark:text-black"
+                            />}
                         <Input
                             value={passwordValue}
                             isInvalid={isPwdInvalid}
@@ -178,7 +244,7 @@ export const LoginPanel = () => {
                             isRequired
                             minLength={8}
                             maxLength={16}
-                            label="密码"
+                            label={isLoginPanel ? '密码' : '新密码'}
                             type={inputType}
                             variant="bordered"
                             endContent={endContentIcon('password')}
@@ -193,14 +259,14 @@ export const LoginPanel = () => {
                             >
                                 记住密码
                             </Checkbox>
-                            <Link color="primary" href="#" size="sm">
-                                找回密码?
+                            <Link color="primary" size="sm" className="cursor-pointer" onPress={resetForm}>
+                                {isLoginPanel ? '找回密码?' : '返回登录'}
                             </Link>
                         </div>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="primary" variant="ghost" isLoading={isLoading} onPress={handleChange}>
-                            登录/注册
+                            {isLoginPanel ? '登录/注册' : '确认找回'}
                         </Button>
                     </ModalFooter>
                 </>
