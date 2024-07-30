@@ -2,4 +2,24 @@
     .clip-bottom-right {
         clip-path: polygon(0 0, 100% 0, 100% 0%, 0% 100%, 0 100%);
     }
+
+    .regTip> :nth-child(2) {
+        @apply h-6;
+    }
+
+    @keyframes slide-down {
+        from {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .slide-down-animation {
+        animation: slide-down 1s ease forwards;
+    }
 }
