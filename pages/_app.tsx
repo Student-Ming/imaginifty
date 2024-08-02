@@ -5,12 +5,13 @@ import { NextUIProvider } from "@nextui-org/react";
 import { NavBar } from '@/src/components/global/navbar';
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import LoadingProgress from '@/src/components/global/progress';
-import { store, persistor } from '@/src/redux';
+import { store, persistor } from '@/src/redux/store'
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import LoginDialog from '@/src/components/login/loginDialog';
 
 function MyApp({ Component, pageProps }: AppProps) {
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>

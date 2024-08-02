@@ -1,19 +1,14 @@
 import { useTheme } from "next-themes";
 import { Sun, MoonStar } from "lucide-react";
 import { Switch, Tooltip } from "@nextui-org/react";
-import { useDispatch, useSelector } from "react-redux";
-import { themeState } from "@/src/redux/features/theme";
 import { changeType } from "@/src/redux/features/theme";
 import { useEffect } from "react";
-
-interface params {
-  theme: themeState
-}
+import { useAppDispatch, useAppSelector } from "@/src/redux";
 
 export const ThemeSwitcher = () => {
-  const { type, isSelected, tip, color } = useSelector((state: params) => state.theme)
+  const { type, isSelected, tip, color } = useAppSelector((state) => state.theme)
+  const dispatch = useAppDispatch()
   const { setTheme } = useTheme()
-  const dispatch = useDispatch()
 
   useEffect(() => {
     setTheme(type)

@@ -12,12 +12,12 @@ export const themeSlice = createSlice({
     initialState,
     reducers: {
         changeType(state) {
-            if(state.type === 'light') {
+            if (state.type === 'light') {
                 state.type = 'dark'
                 state.isSelected = true
                 state.tip = 'Switch to light theme'
                 state.color = 'secondary'
-            }else {
+            } else {
                 state.type = 'light'
                 state.isSelected = false
                 state.tip = 'Switch to dark theme'
@@ -27,7 +27,7 @@ export const themeSlice = createSlice({
     }
 })
 
-export const {changeType} = themeSlice.actions
+export const { changeType } = themeSlice.actions
 export default themeSlice.reducer
 
 export interface themeState {
