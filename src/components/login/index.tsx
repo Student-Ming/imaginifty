@@ -1,8 +1,8 @@
+import { useAppDispatch } from "@/src/redux"
 import { showModal } from "@/src/redux/features/loginDialog"
-import { useDispatch } from "react-redux"
 
 export const Login = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   
   return (
     <div>

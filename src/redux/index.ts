@@ -1,40 +1,22 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
-import autoMergeLevel1 from "redux-persist/lib/stateReconciler/autoMergeLevel1";
-import storage from "redux-persist/lib/storage";
-import themeReducer from "./features/theme";
-import loginDialogReducer from "./features/loginDialog"
+import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from "react-redux";
+import { AppDispatch, AppState } from "./store";
 
-const persistConfig = {
-    key: 'imaginifty',
-    storage: storage,
-    stateReconciler: autoMergeLevel1,
-    blacklist: ['loginDialog']
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
+export const useAppStore = useStore<AppState>
+
+export enum DataStatus {
+    INITIAL = 'initial',
+    PENDING = 'pending',
+    SUCCESS = 'success',
+    FAILED = 'failed'
 }
 
-const reducers = combineReducers({
-    theme: themeReducer,
-    loginDialog: loginDialogReducer,
-})
+export interface HasStatus<T> {
+    status: DataStatus;
+    data: T | null;
+};
 
-const persistedReducer = persistReducer(persistConfig, reducers as any)
-
-const store = configureStore({
-    reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [
-                FLUSH,
-                REHYDRATE,
-                PAUSE,
-                PERSIST,
-                PURGE,
-                REGISTER
-            ]
-        }
-    })
-})
-
-const persistor = persistStore(store)
-
-export { store, persistor }
+export const initialData = { data: null, status: DataStatus.INITIAL };
+export const pendingData = { data: null, status: DataStatus.PENDING };
+export const rejectedData = { data: null, status: DataStatus.FAILED };
