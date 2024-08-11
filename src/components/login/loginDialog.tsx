@@ -13,7 +13,7 @@ export default function LoginDialog() {
             classNames={{ closeButton: "mt-1 mr-1 transition-transform rotate-0 hover:rotate-180 duration-300 ease-[cubic-bezier(.56,-0.53,.79,1.39)]" }}
             isOpen={isOpen}
             onOpenChange={() => dispatch(showModal())}
-            onClose={() => dispatch(resetFields())}
+            onClose={() => dispatch(resetFields('close'))}
             placement="center"
             isDismissable={true}
             motionProps={{

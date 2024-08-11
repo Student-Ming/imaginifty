@@ -14,5 +14,11 @@ export const submitFields = createAsyncThunk(
     if (!state.loginDialog.isLoginPanel) {
       dispatch(verifyAuthCode());
     }
+    if (state.loginDialog.isSelected) {
+      localStorage.setItem('userForm', JSON.stringify({
+        email: state.loginDialog.emailTotal.emailValue,
+        password: state.loginDialog.passwordTotal.pwdValue
+      }))
+    }
   }
 )

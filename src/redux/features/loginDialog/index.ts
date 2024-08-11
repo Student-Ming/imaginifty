@@ -5,6 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState: dialogState = {
   isOpen: false,
   isLoading: false,
+  isSelected: false,
   isLoginPanel: true,
   emailTotal: {
     emailValue: '',
@@ -40,6 +41,9 @@ export const loginDialogSlice = createSlice({
     },
     changePanel(state) {
       state.isLoginPanel = !state.isLoginPanel
+    },
+    changeSelected(state, { payload }) {
+      state.isSelected = payload
     },
     setEmailValue(state, actions) {
       state.emailTotal.emailValue = actions.payload
@@ -113,7 +117,10 @@ export const loginDialogSlice = createSlice({
       state.authCodeTotal.isAuthCodeInvalid = false
       state.authCodeTotal.authCodeInputColor = 'default'
     },
-    resetFields(state) {
+    resetFields(state, { payload }) {
+      if (payload === 'close') {
+        state.isLoginPanel = true
+      }
       state.emailTotal = {
         emailValue: '',
         emailErrorMsg: '',
@@ -133,6 +140,24 @@ export const loginDialogSlice = createSlice({
         authCodeInputColor: 'default'
       }
     },
+    getUserForm(state) {
+      try {
+        const userForm = localStorage.getItem('userForm');
+        if (userForm) {
+          const parsedData = JSON.parse(userForm)
+          if (parsedData.email) {
+            state.emailTotal.emailValue = parsedData.email
+          }
+          if (parsedData.password) {
+            state.passwordTotal.pwdValue = parsedData.password
+          }
+        }
+      } catch (error) {
+        state.emailTotal.emailValue = ''
+        state.passwordTotal.pwdValue = ''
+      }
+    }
+
   },
   extraReducers: (builder) => {
     builder
@@ -151,6 +176,7 @@ export const loginDialogSlice = createSlice({
 export const {
   showModal,
   changePanel,
+  changeSelected,
   setEmailValue,
   verifyEmail,
   clearEmailInput,
@@ -161,12 +187,14 @@ export const {
   verifyAuthCode,
   clearAuthCodeInput,
   resetFields,
+  getUserForm,
 } = loginDialogSlice.actions
 export default loginDialogSlice.reducer
 
 export interface dialogState {
   isOpen: boolean,
   isLoading: boolean,
+  isSelected: boolean,
   isLoginPanel: boolean,
   emailTotal: emailInput,
   passwordTotal: passwordInput,
