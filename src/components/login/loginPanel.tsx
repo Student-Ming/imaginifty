@@ -1,14 +1,15 @@
 import { ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Checkbox, Input, Link } from "@nextui-org/react";
 import { MailIcon } from './MailIcon'
 import { LockIcon } from './LockIcon';
-import { changePanel, clearAuthCodeInput, clearEmailInput, clearPasswordInput, resetFields, setAuthCodeValue, setPasswordValue, showModal, verifyAuthCode, verifyEmail, verifyPassword } from "@/src/redux/features/loginDialog";
+import { changePanel, changeSelected, clearAuthCodeInput, clearEmailInput, clearPasswordInput, getUserForm, resetFields, setAuthCodeValue, setPasswordValue, showModal, verifyAuthCode, verifyEmail, verifyPassword } from "@/src/redux/features/loginDialog";
 import { Tooltip } from "@nextui-org/react";
 import { CircleX, Eye, EyeOff } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useVerificationCode } from "@/src/hooks/use-verification-code";
 import { setEmailValue } from "@/src/redux/features/loginDialog";
 import { useAppDispatch, useAppSelector } from "@/src/redux";
 import { submitFields } from "@/src/api/login";
+import { clsxm } from "@/src/utils/clsxm";
 
 const loginImg = {
   QRimg: `${process.env.NODE_ENV === 'production' ? 'https://student-ming.github.io/imaginifty' : ''}/images/login/QR.svg`,
@@ -24,7 +25,7 @@ export const LoginPanel = () => {
     ...loginImg
   };
 
-  const { isLoading, isLoginPanel, emailTotal, passwordTotal, authCodeTotal } = useAppSelector((state) => state.loginDialog)
+  const { isLoading, isSelected, isLoginPanel, emailTotal, passwordTotal, authCodeTotal } = useAppSelector((state) => state.loginDialog)
   const dispatch = useAppDispatch()
 
   const [inputType, setInputType] = useState<inputType>('password')
@@ -89,14 +90,17 @@ export const LoginPanel = () => {
 
   const resetForm = () => {
     dispatch(changePanel())
-    dispatch(resetFields())
+    dispatch(resetFields('toggle'))
     endCountdown()
   }
+
+  useEffect(() => {
+    dispatch(getUserForm())
+  }, [dispatch])
 
   const submitForm = () => {
     dispatch(submitFields())
   }
-
 
   return (
     <ModalContent>
@@ -178,15 +182,20 @@ export const LoginPanel = () => {
               endContent={endContentIcon('password')}
               className="regTip dark:text-black"
             />
-            <div className="flex px-1 justify-between">
-              <Checkbox
-                size="sm"
-                classNames={{
-                  label: "text-small",
-                }}
-              >
-                记住密码
-              </Checkbox>
+            <div className={clsxm('flex px-1',
+              { 'justify-between': isLoginPanel },
+              { 'justify-end': !isLoginPanel })}>
+              {isLoginPanel &&
+                <Checkbox
+                  isSelected={isSelected}
+                  onChange={(e) => dispatch(changeSelected(e.target.checked))}
+                  size="sm"
+                  classNames={{
+                    label: "text-small",
+                  }}
+                >
+                  记住密码
+                </Checkbox>}
               <Link color="primary" size="sm" className="cursor-pointer" onPress={resetForm}>
                 {isLoginPanel ? '找回密码?' : '返回登录'}
               </Link>
