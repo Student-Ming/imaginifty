@@ -139,6 +139,7 @@ export const loginDialogSlice = createSlice({
         isAuthCodeInvalid: false,
         authCodeInputColor: 'default'
       }
+      state.isSelected = false
     },
     getUserForm(state) {
       try {
