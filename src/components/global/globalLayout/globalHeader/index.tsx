@@ -1,8 +1,8 @@
 import { ThemeSwitcher } from './ThemeSwitcher'
-import { Login } from '../../login';
+import { Login } from '@/src/components/login';
 import { GLOBAL_HEADER_HEIGHT } from '@/src/constants/layout';
 import Link from 'next/link';
-import { Avatar } from '../avatar';
+import { Avatar } from '../../avatar';
 import { clsxm } from '@/src/utils/clsxm';
 import { SlugName } from './slugName';
 
@@ -12,7 +12,7 @@ const defaultAvaterConfig = {
   linkPath: '/',
 };
 
-export const NavBar = () => {
+export const GlobalHeader = () => {
   const { imgSrc, className, linkPath } = {
     ...defaultAvaterConfig
   };

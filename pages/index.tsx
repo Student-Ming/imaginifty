@@ -1,9 +1,11 @@
-import { HomeIndex } from '@/src/components/home';
+import CommonHome, { DashBoard } from '@/src/components/home';
+import { useState } from 'react';
 
 export default function Home() {
+  const [isLogin, setIsLogin] = useState(true)
   return (
     <div>
-      <HomeIndex></HomeIndex>
+      { isLogin ? <DashBoard /> : <CommonHome /> }
     </div>
   );
 }

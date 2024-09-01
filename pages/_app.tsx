@@ -2,13 +2,13 @@ import '@/src/styles/globals.css'
 import type { AppProps } from 'next/app'
 import Providers from "./providers";
 import { NextUIProvider } from "@nextui-org/react";
-import { NavBar } from '@/src/components/global/navbar';
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import LoadingProgress from '@/src/components/global/progress';
 import { store, persistor } from '@/src/redux/store'
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import LoginDialog from '@/src/components/login/loginDialog';
+import { GlobalLayout } from '@/src/components/global/globalLayout';
 
 function MyApp({ Component, pageProps }: AppProps) {
 
@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <NextUIProvider>
             <NextThemesProvider attribute="class" defaultTheme="light">
               <LoadingProgress />
-              <NavBar></NavBar>
+              <GlobalLayout />
               <Component {...pageProps} />
               <LoginDialog />
             </NextThemesProvider>
