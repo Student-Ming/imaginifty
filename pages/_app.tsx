@@ -4,30 +4,30 @@ import Providers from "./providers";
 import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import LoadingProgress from '@/src/components/global/progress';
-import { store, persistor } from '@/src/redux/store'
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
 import LoginDialog from '@/src/components/login/loginDialog';
 import { GlobalLayout } from '@/src/components/global/globalLayout';
+import { appWithTranslation } from 'next-i18next';
+import nextI18NextConfig from '../next-i18next.config.js';
+import { wrapper } from '@/src/redux/store';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const { store } = wrapper.useWrappedStore(pageProps)
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Providers>
-          <NextUIProvider>
-            <NextThemesProvider attribute="class" defaultTheme="light">
-              <LoadingProgress />
-              <GlobalLayout />
-              <Component {...pageProps} />
-              <LoginDialog />
-            </NextThemesProvider>
-          </NextUIProvider>
-        </Providers>
-      </PersistGate>
+      <Providers>
+        <NextUIProvider>
+          <NextThemesProvider attribute="class" defaultTheme="light">
+            <LoadingProgress />
+            <GlobalLayout />
+            <Component {...pageProps} />
+            <LoginDialog />
+          </NextThemesProvider>
+        </NextUIProvider>
+      </Providers>
     </Provider>
   )
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp, nextI18NextConfig);

@@ -26,11 +26,12 @@ jobs:
         npm install
         npm run build
 
-    - name: 部署
-      uses: JamesIves/github-pages-deploy-action@4.1.5
-      with:
-        branch: gh-pages
-        folder: out
+    # - name: 部署
+    #   uses: JamesIves/github-pages-deploy-action@4.1.5
+    #   with:
+    #     branch: gh-pages
+    #     folder: out
+    # 在package.json中："build": "next build && touch out/.nojekyll"
 
     - name: 登陆DockerHub
       uses: docker/login-action@v3

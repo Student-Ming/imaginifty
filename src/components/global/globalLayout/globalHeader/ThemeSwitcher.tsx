@@ -1,18 +1,25 @@
 import { useTheme } from "next-themes";
 import { Sun, MoonStar } from "lucide-react";
 import { Switch, Tooltip } from "@nextui-org/react";
-import { changeType } from "@/src/redux/features/theme";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/src/redux";
+import { useEffect, useMemo, useState } from "react";
 
 export const ThemeSwitcher = () => {
-  const { type, isSelected, tip, color } = useAppSelector((state) => state.theme)
-  const dispatch = useAppDispatch()
-  const { setTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false);
 
+  const tip = useMemo(() => { return theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme' }, [theme])
+  const color = useMemo(() => { return theme === 'dark' ? 'secondary' : 'default' }, [theme])
+
+  // 解决React hydration 警告
+  // 通常发生在服务器端渲染 (SSR) 和客户端渲染 (CSR) 之间的状态不一致时。
+  // data-selected 属性的值在服务器端渲染时为 null，而在客户端渲染时为 true，这导致了不匹配
   useEffect(() => {
-    setTheme(type)
-  }, [type])
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="mt-1">
@@ -29,12 +36,12 @@ export const ThemeSwitcher = () => {
           ]
         }}>
         <Switch
-          defaultSelected={isSelected}
+          defaultSelected={theme === 'dark'}
           size="md"
           color="secondary"
           startContent={<MoonStar />}
           endContent={<Sun />}
-          onChange={() => dispatch(changeType())}
+          onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         />
       </Tooltip>
     </div>
