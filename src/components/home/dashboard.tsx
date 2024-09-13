@@ -23,6 +23,7 @@ export default function DashBoard() {
   const onValuesChange = (selectedKeys: any) => {
     setLanguage(selectedKeys.currentKey)
     localStorage.setItem('language', selectedKeys.currentKey)
+    window.location.reload()
   };
 
   if (!mounted) {

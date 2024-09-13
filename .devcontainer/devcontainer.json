@@ -3,7 +3,11 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "lokalise.i18n-ally"
+        "lokalise.i18n-ally",
+        "ms-azuretools.vscode-docker",
+        "bradlc.vscode-tailwindcss",
+        "heybourn.headwind",
+        "github.vscode-github-actions"
       ]
     }
   }
