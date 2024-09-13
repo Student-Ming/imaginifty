@@ -1,0 +1,10 @@
+{
+  "name": "My Codespace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "lokalise.i18n-ally"
+      ]
+    }
+  }
+}
