@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import HeadTitle from '../title'
 import { useTranslation } from 'next-i18next';
-import { Select, SelectItem } from "@nextui-org/react";
+import { Button, Select, SelectItem } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 
 export default function DashBoard() {
@@ -18,18 +18,17 @@ export default function DashBoard() {
     const localLanguage = localStorage.getItem('language') || 'zh-CN'
     i18n.changeLanguage(localLanguage);
     setLanguage(localLanguage)
-  }, [language, i18n]);
+  }, [i18n]);
 
-  const onValuesChange = (selectedKeys: any) => {
-    setLanguage(selectedKeys.currentKey)
-    localStorage.setItem('language', selectedKeys.currentKey)
+  const changeLang = () => {
+    localStorage.setItem('language', language)
     window.location.reload()
   };
 
   if (!mounted) {
     return null;
   }
-  
+
   return (
     <div>
       <HeadTitle titleName='IMAGINIFTY:Beyond Your Imagination' />
@@ -44,7 +43,7 @@ export default function DashBoard() {
       </div>
       <button onClick={() => router.push('/mine')}>{t('PERSONAL_CENTER')}</button><br />
       <button onClick={() => alert('666')}>{t('TEST')}</button>
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-1">
         <Select
           radius="sm"
           variant="bordered"
@@ -52,11 +51,16 @@ export default function DashBoard() {
           className="max-w-xs"
           disallowEmptySelection
           defaultSelectedKeys={[language]}
-          onSelectionChange={onValuesChange}
+          onSelectionChange={(selectedKeys: any) => setLanguage(selectedKeys.currentKey)}
         >
           <SelectItem key='zh-CN'>简体中文</SelectItem>
           <SelectItem key='en-US'>English</SelectItem>
         </Select>
+        <Button
+          radius="sm"
+          onClick={changeLang}
+          disabled={language === (localStorage.getItem('language') || 'zh-CN')}
+        >{t('SAVE')}</Button>
       </div>
     </div>
   )
