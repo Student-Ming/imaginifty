@@ -3,6 +3,17 @@ const { i18n } = require('./next-i18next.config.js')
 module.exports = {
   i18n,
   reactStrictMode: false,
+  transpilePackages: [
+    "antd",
+    "@ant-design",
+    "rc-util",
+    "rc-pagination",
+    "rc-picker",
+    "rc-notification",
+    "rc-tooltip",
+    "rc-tree",
+    "rc-table"
+  ],
   // output: 'export',
   // 添加basePath，确保在GitHub Pages上部署的项目能正确进行路由跳转
   // basePath: process.env.NODE_ENV === 'production' ? '/imaginifty' : '',

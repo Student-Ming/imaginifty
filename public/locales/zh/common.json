@@ -1,5 +1,6 @@
 {
-  "PERSONAL_CENTER": "个人中心",
   "TEST": "测试",
-  "SAVE": "保存"
+  "PERSONAL_CENTER": "个人中心",
+  "DARK_THEME": "切换至黑夜模式",
+  "LIGHT_THEME": "切换至白天模式"
 }

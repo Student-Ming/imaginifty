@@ -1,5 +1,6 @@
 {
-    "PERSONAL_CENTER": "Personal Center",
     "TEST": "test",
-    "SAVE": "Save"
+    "PERSONAL_CENTER": "Personal Center",
+    "DARK_THEME": "Switch to dark theme",
+    "LIGHT_THEME": "Switch to light theme"
 }

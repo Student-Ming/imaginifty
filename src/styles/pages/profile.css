@@ -1,0 +1,17 @@
+@layer components {
+    .profile-slidebar-memu {
+        @apply !border-0;
+
+        .ant-menu-item {
+            @apply flex items-center gap-2 !rounded;
+
+            .ant-menu-title-content {
+                @apply !m-0;
+            }
+        }
+
+        .ant-menu-item-selected {
+            @apply !text-inherit;
+        }
+    }
+}
