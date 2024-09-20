@@ -2,12 +2,14 @@ import { useTheme } from "next-themes";
 import { Sun, MoonStar } from "lucide-react";
 import { Switch, Tooltip } from "@nextui-org/react";
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false);
+  const {t} = useTranslation('common')
 
-  const tip = useMemo(() => { return theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme' }, [theme])
+  const tip = useMemo(() => { return theme === 'dark' ? t('LIGHT_THEME') : t('DARK_THEME') }, [theme])
   const color = useMemo(() => { return theme === 'dark' ? 'secondary' : 'default' }, [theme])
 
   // 解决React hydration 警告
