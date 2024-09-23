@@ -7,12 +7,19 @@ import LoadingProgress from '@/src/components/global/progress';
 import { Provider } from 'react-redux';
 import LoginDialog from '@/src/components/login/loginDialog';
 import { GlobalLayout } from '@/src/components/global/globalLayout';
-import { appWithTranslation } from 'next-i18next';
+import { appWithTranslation, useTranslation } from 'next-i18next';
 import nextI18NextConfig from '../next-i18next.config.js';
 import { wrapper } from '@/src/redux/store';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { store } = wrapper.useWrappedStore(pageProps)
+  const { i18n } = useTranslation()
+
+  useEffect(() => {
+    const localLanguage = localStorage.getItem('language') || 'zh-CN'
+    i18n.changeLanguage(localLanguage);
+  }, [i18n]);
 
   return (
     <Provider store={store}>

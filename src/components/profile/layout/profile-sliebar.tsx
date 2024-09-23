@@ -2,7 +2,7 @@ import { Menu } from "antd";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 import { PROFILE_MENU_ITEM, PROFILE_MENU_MAP, PROFILE_PERFIX } from "./router";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'next-i18next';
 
 export default function ProfileSlieBar() {
     const router = useRouter()
