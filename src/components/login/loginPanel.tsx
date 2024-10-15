@@ -63,14 +63,26 @@ export const LoginPanel = () => {
           {
             authCodeTotal.authCodeValue && <CircleX className="cursor-pointer mr-2" size={19} color="#a1a1a9" onClick={() => { dispatch(clearAuthCodeInput()) }} />
           }
-          <Button color="primary" variant="flat" className="top-0.5 bg-[#d4d4d8a2] text-[#2971e6e2]" onClick={() => {
-            startCountdown()
-          }} disabled={isButtonDisabled}>
+          <Button
+            color="primary"
+            variant="flat"
+            className="top-0.5 bg-[#d4d4d8a2] text-[#2971e6e2]"
+            onClick={sendAuthCode}
+            disabled={isButtonDisabled}
+          >
             {isButtonDisabled ? `重新获取(${countdown}s)` : '获取验证码'}
           </Button>
         </div>
       )
     }
+  }
+
+  const sendAuthCode = () => {
+    dispatch(verifyEmail())
+    if (!emailTotal.emailValue || emailTotal.isEmailInvalid) {
+      return
+    }
+    startCountdown()
   }
 
   const handleInvalidInput = (InvalidInput: InvalidInput) => (e: React.ChangeEvent<HTMLInputElement>) => {
