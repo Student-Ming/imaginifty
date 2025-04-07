@@ -1,7 +1,7 @@
 import { ModalContent, ModalHeader, ModalBody, ModalFooter, Button, Checkbox, Input, Link } from "@nextui-org/react";
 import { MailIcon } from './MailIcon'
 import { LockIcon } from './LockIcon';
-import { changePanel, changeSelected, clearAuthCodeInput, clearEmailInput, clearPasswordInput, getUserForm, resetFields, setAuthCodeValue, setPasswordValue, showModal, verifyAuthCode, verifyEmail, verifyPassword } from "@/src/redux/features/loginDialog";
+import { changePanel, changeSelected, clearAuthCodeInput, clearEmailInput, clearPasswordInput, getUserForm, resetFields, setAuthCodeValue, setPasswordValue, verifyAuthCode, verifyEmail, verifyPassword } from "@/src/redux/features/loginDialog";
 import { Tooltip } from "@nextui-org/react";
 import { CircleX, Eye, EyeOff } from "lucide-react";
 import React, { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ import { setEmailValue } from "@/src/redux/features/loginDialog";
 import { useAppDispatch, useAppSelector } from "@/src/redux";
 import { submitFields } from "@/src/api/login";
 import { clsxm } from "@/src/utils/clsxm";
+import { Image } from "@nextui-org/react";
 
 const loginImg = {
   QRimg: `${process.env.NODE_ENV === 'production' ? 'https://student-ming.github.io/imaginifty' : ''}/images/login/QR.svg`,
@@ -138,7 +139,7 @@ export const LoginPanel = () => {
                 ],
               }}>
               <div className="clip-bottom-right absolute top-1 left-1 cursor-pointer">
-                <img width={50} height={50} src={QRimg} alt="扫码登录安全快捷" />
+                <Image radius="none" width={50} height={50} src={QRimg} alt="扫码登录安全快捷" />
               </div>
             </Tooltip>
             <h1 className="dark:text-black flex justify-center">{isLoginPanel ? '邮箱登录' : '找回密码'}</h1>
