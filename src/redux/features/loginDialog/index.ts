@@ -3,7 +3,6 @@ import { authCodePattern, emailPattern, passwordPattern } from "@/src/utils/logi
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: dialogState = {
-  isOpen: false,
   isLoading: false,
   isSelected: false,
   isLoginPanel: true,
@@ -36,9 +35,6 @@ export const loginDialogSlice = createSlice({
   name: 'loginDialog',
   initialState,
   reducers: {
-    showModal(state) {
-      state.isOpen = !state.isOpen
-    },
     changePanel(state) {
       state.isLoginPanel = !state.isLoginPanel
     },
@@ -175,7 +171,6 @@ export const loginDialogSlice = createSlice({
 })
 
 export const {
-  showModal,
   changePanel,
   changeSelected,
   setEmailValue,
@@ -193,7 +188,6 @@ export const {
 export default loginDialogSlice.reducer
 
 export interface dialogState {
-  isOpen: boolean,
   isLoading: boolean,
   isSelected: boolean,
   isLoginPanel: boolean,

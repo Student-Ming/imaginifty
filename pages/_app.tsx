@@ -5,7 +5,6 @@ import { NextUIProvider } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import LoadingProgress from '@/src/components/global/progress';
 import { Provider } from 'react-redux';
-import LoginDialog from '@/src/components/login/loginDialog';
 import { GlobalLayout } from '@/src/components/global/globalLayout';
 import { appWithTranslation, useTranslation } from 'next-i18next';
 import nextI18NextConfig from '../next-i18next.config.js';
@@ -29,7 +28,6 @@ function MyApp({ Component, pageProps }: AppProps) {
             <LoadingProgress />
             <GlobalLayout />
             <Component {...pageProps} />
-            <LoginDialog />
           </NextThemesProvider>
         </NextUIProvider>
       </Providers>
