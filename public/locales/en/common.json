@@ -1,6 +1,7 @@
 {
     "TEST": "test",
     "PERSONAL_CENTER": "Personal Center",
+    "DAILY_STUDY": "daily study",
     "DARK_THEME": "Switch to dark theme",
     "LIGHT_THEME": "Switch to light theme"
 }

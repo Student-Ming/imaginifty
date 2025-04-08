@@ -19,6 +19,7 @@ export default function DashBoard() {
         </main>
       </div>
       <button onClick={() => router.push('/profile')}>{t('PERSONAL_CENTER')}</button><br />
+      <button onClick={() => router.push('/study')}>{t('DAILY_STUDY')}</button><br />
       <button onClick={() => alert('666')}>{t('TEST')}</button>
     </div>
   )
